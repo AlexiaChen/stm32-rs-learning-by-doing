@@ -21,8 +21,7 @@ static void delay(uint32_t milliseconds)
     for(i = 0; i < (milliseconds * 72000); i++);
 }
 
-
-static void turn_pc13_light_based_on_register(BOOL enable)
+static void init_pc13_light_based_on_register()
 {
 	// eanble IOPCEN(I/O port C clock enable) 其实就是打开GPIOC的时钟  因为PC13是Port C 13号口的意思
 	RCC->APB2ENR = 0x00000010;
@@ -30,7 +29,11 @@ static void turn_pc13_light_based_on_register(BOOL enable)
 	// GPIOx CRH.  这个x是可以A到E的任意一个字母  config PC13, 13号口因为数字编码较大，所以在参考手册里面找到端口配置高寄存器
 	// 其中的CNF13和MODE13就是配置13号口的。CNF13 = 00 (通用推挽输出模式) MODE13 = 11 (输出模式，最大速度50MHz) 
 	GPIOC->CRH = 0x00300000;
-	
+}
+
+
+static void turn_pc13_light_based_on_register(BOOL enable)
+{
 	// 对配置好的PC13口输出数据，所以需要用到输出寄存器，对ODR13写1，这么PC13口就是高电平，写0就是低电平。
 	// 因为这个灯是低电平点亮的，所以如果给ODR全0，那么这个灯才会亮，给ODR 0x00002000 就是灭
 	const int PC13_LIGHT_ON  = 0x00000000;
@@ -46,7 +49,7 @@ static void turn_pc13_light_based_on_register(BOOL enable)
 	
 }
 
-static void turn_pc13_light_based_on_std(BOOL enable)
+static void init_pc13_light_based_on_std()
 {
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOC, ENABLE);
 	
@@ -55,7 +58,10 @@ static void turn_pc13_light_based_on_std(BOOL enable)
 	GPIO_InitStruct.GPIO_Speed = GPIO_Speed_50MHz;
 	GPIO_InitStruct.GPIO_Mode = GPIO_Mode_Out_PP;
 	GPIO_Init(GPIOC, &GPIO_InitStruct);
-	
+}
+
+static void turn_pc13_light_based_on_std(BOOL enable)
+{
 	if (enable)
 	{
 		// Reset是置低电平
@@ -70,7 +76,9 @@ static void turn_pc13_light_based_on_std(BOOL enable)
 
 int main(void) 
 {
-	
+	init_pc13_light_based_on_std();
+	// 下面这个也可以
+	// init_pc13_light_based_on_register();
 	for (int i = 0; i < 10; ++i)
 	{
 		turn_pc13_light_based_on_register(TRUE);
