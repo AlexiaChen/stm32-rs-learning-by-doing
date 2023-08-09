@@ -1,6 +1,7 @@
 [workspace]
 members = [
     "rust/freshman",
+    "rust/led",
 ]
 
 [profile.release]
