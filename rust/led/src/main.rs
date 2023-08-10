@@ -22,7 +22,10 @@ fn main() -> ! {
     let mut gpioa = dp.GPIOA.split();
 
     /* Set up LED pin */
-    let mut led = gpioa.pa0.into_alternate_push_pull(&mut gpioa.crl);
+    let mut led0 = gpioa.pa0.into_push_pull_output(&mut gpioa.crl);
+    let mut led1 = gpioa.pa1.into_push_pull_output(&mut gpioa.crl);
+    let mut led2 = gpioa.pa2.into_push_pull_output(&mut gpioa.crl);
+    let mut led3 = gpioa.pa3.into_push_pull_output(&mut gpioa.crl); 
 
     /* Set up sysclk and freeze it */
     let clocks = rcc.cfgr.freeze(&mut flash.acr);
@@ -32,9 +35,24 @@ fn main() -> ! {
 
     loop {
         /* Light show */
-        led.set_low();
-        delay.delay_ms(5_000_u16);
-        led.set_high();
-        delay.delay_ms(1000_u16);
+        led0.set_low();
+        delay.delay_ms(200_u16);
+        led0.set_high();
+        delay.delay_ms(200_u16);
+        
+        led1.set_low();
+        delay.delay_ms(200_u16);
+        led1.set_high();
+        delay.delay_ms(200_u16);
+        
+        led2.set_low();
+        delay.delay_ms(200_u16);
+        led2.set_high();
+        delay.delay_ms(200_u16);
+        
+        led3.set_low();
+        delay.delay_ms(200_u16);
+        led3.set_high();
+        delay.delay_ms(200_u16);
     }
 }

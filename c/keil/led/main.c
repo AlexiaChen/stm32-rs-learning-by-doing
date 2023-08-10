@@ -1,4 +1,4 @@
-// 这个只是单独的main.c文件。需要引入其他文件，才可以是一个完整的工程，为了避免重复，我就不引入了，freshman目录是一个完整的工程，可以参考那个。
+// 基于寄存器开发的模式，只是用来演示，基于寄存器开发之需要引入下面的头文件就可以了
 
 #include "stm32f10x.h"
 
@@ -26,11 +26,11 @@ static void init_pa0_led_light_based_on_std()
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);
 	
 	GPIO_InitTypeDef GPIO_InitStruct;
-	GPIO_InitStruct.GPIO_Pin = GPIO_Pin_0;
+	GPIO_InitStruct.GPIO_Pin = GPIO_Pin_0 | GPIO_Pin_1 | GPIO_Pin_2 | GPIO_Pin_3 | GPIO_Pin_4;
 	GPIO_InitStruct.GPIO_Speed = GPIO_Speed_50MHz;
 	GPIO_InitStruct.GPIO_Mode = GPIO_Mode_Out_PP;
 	GPIO_Init(GPIOA, &GPIO_InitStruct);
-}`
+}
 
 
 static void turn_pa0_led_light_based_on_std(BOOL enable)
@@ -40,15 +40,11 @@ static void turn_pa0_led_light_based_on_std(BOOL enable)
 	{
 		// Reset是置低电平
 		GPIO_ResetBits(GPIOA, GPIO_Pin_0);
-		// 这个函数也可以
-		// GPIO_WriteBit(GPIOA, GPIO_Pin_0, Bit_RESET);
 	}
 	else
 	{
 		// Set是置高电平
 		GPIO_SetBits(GPIOA, GPIO_Pin_0);
-		// 这个函数也可以
-		// GPIO_WriteBit(GPIOA, GPIO_Pin_0, Bit_SET);
 	}
 }
 
@@ -57,10 +53,38 @@ int main(void)
 	init_pa0_led_light_based_on_std();
 	for (;;)
 	{
-		turn_pa0_led_light_based_on_std(TRUE);	
 		delay(100);
-		turn_pa0_led_light_based_on_std(FALSE);
+		
+		GPIO_Write(GPIOA, ~0x0001);
+		
 		delay(100);
+		
+		GPIO_Write(GPIOA, ~0x0002);
+		
+		delay(100);
+		
+		GPIO_Write(GPIOA, ~0x0004);
+		
+		delay(100);
+		
+		GPIO_Write(GPIOA, ~0x0008);
+		
+		delay(100);
+		
+		GPIO_Write(GPIOA, ~0x0010);
+		
+		delay(100);
+		
+		GPIO_Write(GPIOA, ~0x0020);
+		
+		delay(100);
+		
+		GPIO_Write(GPIOA, ~0x0040);
+		
+		delay(100);
+		
+		GPIO_Write(GPIOA, ~0x0080);
+	
 	}
 	
 	
