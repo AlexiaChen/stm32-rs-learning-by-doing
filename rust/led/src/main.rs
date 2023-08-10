@@ -22,7 +22,7 @@ fn main() -> ! {
     let mut gpioa = dp.GPIOA.split();
 
     /* Set up LED pin */
-    let mut led = gpioa.pa0.into_push_pull_output(&mut gpioa.crl);
+    let mut led = gpioa.pa0.into_alternate_push_pull(&mut gpioa.crl);
 
     /* Set up sysclk and freeze it */
     let clocks = rcc.cfgr.freeze(&mut flash.acr);
