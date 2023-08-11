@@ -14,8 +14,8 @@ fn main() -> ! {
     let dp = pac::Peripherals::take().unwrap();
     let cp = cortex_m::Peripherals::take().unwrap();
 
-    /* Get access to RCC, and GPIOA */
-    let _ = dp.RCC.apb2enr.write(|w| w.iopaen().set_bit());
+    /* Get access to RCC, and GPIOB */
+    let _ = dp.RCC.apb2enr.write(|w| w.iopben().set_bit());
     let rcc = dp.RCC.constrain();
   
     let mut flash = dp.FLASH.constrain();
@@ -31,11 +31,9 @@ fn main() -> ! {
    let mut delay = cp.SYST.delay(&clocks);
 
     loop {
-
         buzzer_p12.set_low();
         delay.delay_ms(500 as u32);
         buzzer_p12.set_high();
         delay.delay_ms(500 as u32);
-      
     }
 }
