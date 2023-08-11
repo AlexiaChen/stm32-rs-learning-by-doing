@@ -1,0 +1,21 @@
+[package]
+name = "buzzer"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+
+[dependencies]
+cortex-m = "0.7.6"       # Access to the generic ARM peripherals
+cortex-m-rt = "0.7.1"   # Startup code for the ARM Core
+embedded-hal = "0.2.7"   # Access to generic embedded functions (`set_high`)
+panic-halt = "0.2.0"     # Panic handler
+nb = "1"             # Non-blocking access to peripherals
+
+
+# Access to the STM32F103 HAL.
+[dependencies.stm32f1xx-hal]
+# STM32F103RB contains a 128kB flash variant which is called "medium density"
+features = ["stm32f103", "rt", "medium"]
+version = "0.10.0"
