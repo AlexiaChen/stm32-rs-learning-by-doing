@@ -3,6 +3,7 @@ members = [
     "rust/freshman",
     "rust/led",
     "rust/buzzer",
+    "rust/control_button_led",
 ]
 
 [profile.release]
