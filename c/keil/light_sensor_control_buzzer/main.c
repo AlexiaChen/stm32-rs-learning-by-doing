@@ -71,7 +71,7 @@ static void init_light_sensor()
 
 static uint8_t light_sensor_state()
 {
-	return GPIO_ReadOutputDataBit(GPIOB, GPIO_Pin_13);
+	return GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_13);
 }
 
 
