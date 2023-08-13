@@ -29,7 +29,7 @@ static void buzzer_off()
 
 static BOOL is_buzzer_on()
 {
-   return GPIO_ReadOutputDataBit(GPIOB, GPIO_Pin_12) == 0;
+   return GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_12) == 0;
 }
 
 
