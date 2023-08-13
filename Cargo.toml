@@ -4,6 +4,7 @@ members = [
     "rust/led",
     "rust/buzzer",
     "rust/control_button_led",
+    "rust/light_sensor_control_buzzer",
 ]
 
 [profile.release]
