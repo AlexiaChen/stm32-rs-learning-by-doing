@@ -154,6 +154,9 @@ impl Oled {
     }
 
     /// 显示一个字符
+    /// line [1, 4]
+    /// col [1, 16]
+    /// ch 字符 ASCII 可见字符
     pub fn show_char(&mut self, line :u8, col: u8, ch: char) {
         self.set_cursor((line - 1)*2, (col - 1)*8);
         for i in 0..8 {
@@ -166,6 +169,9 @@ impl Oled {
     }
 
     /// 显示一个字符串
+    /// line [1, 4]
+    /// col [1, 16]
+    /// str 字符串 ASCII 可见字符
     pub fn show_string(&mut self, line :u8, col: u8, str: &str) {
         let mut i = 0;
         for ch in str.chars() {
@@ -173,10 +179,78 @@ impl Oled {
             i += 1;
         }
     }
+
+    /// 显示一个数字 十进制 正数
+    /// line [1, 4]
+    /// col [1, 16]
+    /// num 数字 0~4294967295
+    /// len 数字长度 1~10
+    pub fn show_number(&mut self, line :u8, col: u8, num: u32, len: u8) {
+        for i in 0..len {
+            let ch = ((num / pow(10, (len - i - 1) as u32)) % 10) as u8 + '0' as u8;
+            self.show_char(line, col + i, ch as char);
+        }
+    }
+
+    /// 显示一个数字 十进制 有符号
+    /// line [1, 4]
+    /// col [1, 16]
+    /// num 数字 -2147483648~2147483647
+    /// len 数字长度 1~10
+    pub fn show_singed_number(&mut self, line :u8, col: u8, num: i32, len: u8) {
+        let number: u32;
+        if num >= 0 {
+            self.show_char(line, col, '+' as char);
+            number = num as u32;
+        } else {
+            self.show_char(line, col, '-' as char);
+            number = (-num) as u32;
+        }
+        for i in 0..len {
+            let ch = ((number / pow(10, (len - i - 1) as u32)) % 10) as u8 + '0' as u8;
+            self.show_char(line, col + i + 1, ch as char);
+        }
+    }
+
+    /// 显示一个数字 十六进制 正数
+    /// line [1, 4]
+    /// col [1, 16]
+    /// num 数字 0~0xFFFFFFFF
+    /// len 数字长度 1~8
+    pub fn show_hex_number(&mut self, line :u8, col: u8, num: u32, len: u8) {
+        for i in 0..len {
+            let ch = ((num / pow(16, (len - i - 1) as u32)) % 16) as u8;
+            if ch < 10 {
+                self.show_char(line, col + i, (ch + '0' as u8) as char);
+            } else {
+                self.show_char(line, col + i, (ch - 10 + 'A' as u8) as char);
+            }
+        }
+    }
+
+    /// 显示一个数字 二进制 正数
+    /// line [1, 4]
+    /// col [1, 16]
+    /// num 数字 0~1111 1111 1111 1111
+    pub fn show_binary_number(&mut self, line :u8, col: u8, num: u32, len: u8) {
+        for i in 0..len {
+            let ch = ((num / pow(2, (len - i - 1) as u32)) % 2) as u8;
+            self.show_char(line, col + i, (ch + '0' as u8) as char);
+        }
+    }
+
+
 }
 
 
-
+/// x的y次方
+fn pow(x: u32, y: u32) -> u32 {
+    let mut result = 1;
+    for _i in 0..y {
+        result *= x;
+    }
+    result
+}
 
 
 
