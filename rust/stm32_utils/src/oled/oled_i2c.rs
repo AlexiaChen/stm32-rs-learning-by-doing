@@ -1,5 +1,5 @@
 use panic_halt as _;
-use stm32f1xx_hal::{pac, prelude::*, gpio::{Output, OpenDrain, Pin, OutputSpeed}};
+use stm32f1xx_hal::gpio::{Output, OpenDrain, Pin};
 
 use crate::oled::oled_font::OLED_F8X16;
 
@@ -9,7 +9,7 @@ pub struct Oled {
 }
 
 impl Oled {
-    pub fn new() -> Self {
+    pub fn new(scl: Pin<'B', 8, Output<OpenDrain>>, sda: Pin<'B', 9, Output<OpenDrain>>) -> Self {
         // 上电延迟
         for _ in 0..1000 {
             for _ in 0..1000 {
@@ -17,22 +17,6 @@ impl Oled {
             }
         }
 
-        let dp = pac::Peripherals::take().unwrap();
-        let _ = cortex_m::Peripherals::take().unwrap();
-
-        /* Get access to RCC, and GPIOB */
-        let _ = dp.RCC.apb2enr.write(|w| w.iopben().set_bit());
-        let _ = dp.RCC.constrain();
-
-        let _ = dp.FLASH.constrain();
-        let mut gpiob = dp.GPIOB.split();
-        let mut scl = gpiob.pb8.into_open_drain_output(&mut gpiob.crh);
-        let mut sda = gpiob.pb9.into_open_drain_output(&mut gpiob.crh);
-
-        scl.set_speed(&mut gpiob.crh, stm32f1xx_hal::gpio::IOPinSpeed::Mhz50);
-        sda.set_speed(&mut gpiob.crh, stm32f1xx_hal::gpio::IOPinSpeed::Mhz50);
-        scl.set_high();
-        sda.set_high();
 
         return Oled {
             scl,

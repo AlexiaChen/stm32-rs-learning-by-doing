@@ -6,11 +6,23 @@ use panic_halt as _;
 
 use cortex_m_rt::entry;
 use stm32_utils::oled::oled_i2c::Oled;
+use stm32f1xx_hal::{pac, prelude::*, gpio::OutputSpeed};
 
 #[entry]
 fn main() -> ! {
    
-    let mut oled = Oled::new();
+    let dp = pac::Peripherals::take().unwrap();
+    let mut gpiob = dp.GPIOB.split();
+
+    let mut scl = gpiob.pb8.into_open_drain_output(&mut gpiob.crh);
+    let mut sda = gpiob.pb9.into_open_drain_output(&mut gpiob.crh);
+
+    scl.set_speed(&mut gpiob.crh, stm32f1xx_hal::gpio::IOPinSpeed::Mhz50);
+    sda.set_speed(&mut gpiob.crh, stm32f1xx_hal::gpio::IOPinSpeed::Mhz50);
+    scl.set_high();
+    sda.set_high();
+
+    let mut oled = Oled::new(scl, sda);
     oled.init();
     oled.show_char(1, 1, 'I');
     oled.show_string(1, 3, "Fuck you!");

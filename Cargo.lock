@@ -326,6 +326,19 @@ dependencies = [
 ]
 
 [[package]]
+name = "through_beam_infrared_sensor_counter"
+version = "0.1.0"
+dependencies = [
+ "cortex-m",
+ "cortex-m-rt",
+ "embedded-hal",
+ "nb 1.1.0",
+ "panic-halt",
+ "stm32_utils",
+ "stm32f1xx-hal",
+]
+
+[[package]]
 name = "unicode-ident"
 version = "1.0.11"
 source = "registry+https://github.com/rust-lang/crates.io-index"

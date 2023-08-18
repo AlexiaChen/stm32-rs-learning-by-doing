@@ -6,7 +6,8 @@ members = [
     "rust/control_button_led",
     "rust/light_sensor_control_buzzer",
     "rust/stm32_utils",
-    "rust/oled_display_for_debug",  
+    "rust/oled_display_for_debug",
+    "rust/through_beam_infrared_sensor_counter",
 ]
 
 [profile.release]
