@@ -230,6 +230,19 @@ dependencies = [
 ]
 
 [[package]]
+name = "rotated_encoder_counter"
+version = "0.1.0"
+dependencies = [
+ "cortex-m",
+ "cortex-m-rt",
+ "embedded-hal",
+ "nb 1.1.0",
+ "panic-halt",
+ "stm32_utils",
+ "stm32f1xx-hal",
+]
+
+[[package]]
 name = "rustc_version"
 version = "0.2.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
