@@ -59,7 +59,7 @@ static void init_timer_int()
 	
 }
 
-int16_t counter = 0;
+uint16_t counter = 0;
 
 void TIM2_IRQHandler(void)
 {
@@ -80,7 +80,8 @@ int main(void)
 	
 	while(1)
 	{
-		OLED_ShowSignedNum(1,7, counter, 5);
+		OLED_ShowNum(1,7, counter, 5);
+		OLED_ShowNum(2,5, TIM_GetCounter(TIM2), 5);
 	}
 	
 	
