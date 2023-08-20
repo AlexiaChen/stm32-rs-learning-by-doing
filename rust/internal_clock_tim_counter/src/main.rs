@@ -47,6 +47,7 @@ fn main() -> ! {
     oled.init();
 
     {
+        // https://dev.to/apollolabsbin/stm32f4-embedded-rust-at-the-hal-timer-interrupts-154e
         //  the scope ensures that the timer is released once the initialization is done
         let mut flash = dp.FLASH.constrain();
         let rcc = dp.RCC.constrain();
