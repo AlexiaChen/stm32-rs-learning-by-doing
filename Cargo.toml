@@ -10,6 +10,7 @@ members = [
     "rust/through_beam_infrared_sensor_counter",
     "rust/rotated_encoder_counter",
     "rust/internal_clock_tim_counter",
+    # "rust/external_clock_tim_counter", # TODO: no way to implement this in Rust with HAL API
 ]
 
 [profile.release]
