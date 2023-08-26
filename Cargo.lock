@@ -30,6 +30,19 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "bef38d45163c2f1dde094a7dfd33ccf595c92905c8f8f4fdc18d06fb1037718a"
 
 [[package]]
+name = "button_pwm_control_sg90"
+version = "0.1.0"
+dependencies = [
+ "cortex-m",
+ "cortex-m-rt",
+ "embedded-hal",
+ "nb 1.1.0",
+ "panic-halt",
+ "stm32_utils",
+ "stm32f1xx-hal",
+]
+
+[[package]]
 name = "buzzer"
 version = "0.1.0"
 dependencies = [

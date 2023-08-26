@@ -13,6 +13,7 @@ members = [
     # "rust/external_clock_tim_counter", # TODO: no way to implement this in Rust with HAL API
     "rust/pwm_control_led",
     "rust/pwm_control_led_remap",
+    "rust/button_pwm_control_sg90",
 ]
 
 [profile.release]
