@@ -109,8 +109,6 @@ void update_pwm_ccr(uint16_t compare_value)
 
 // 0° -> 500
 // 180°(+ 90°) -> 2500
-
-
 void sg90_set_angle(float angle)
 {
 	const uint16_t ccr_range = 2500 - 500;
