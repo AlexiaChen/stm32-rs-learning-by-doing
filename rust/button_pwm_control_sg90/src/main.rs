@@ -20,9 +20,9 @@ use stm32f1xx_hal::gpio::gpiob::PB1;
 fn get_duty_sg90_from_angle(angle: f32, max_duty: u16) -> u16 {
     let start_ccr = max_duty / 40;
     let end_ccr = max_duty  / 8;
-    let crr_range = end_ccr - start_ccr;
+    let ccr_range = end_ccr - start_ccr;
 
-    let duty = (start_ccr as f32  + crr_range as f32 * (angle / 180f32)) as u16;
+    let duty = (start_ccr as f32  + ccr_range as f32 * (angle / 180f32)) as u16;
     duty
 }
 
