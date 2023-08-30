@@ -14,6 +14,7 @@ members = [
     "rust/pwm_control_led",
     "rust/pwm_control_led_remap",
     "rust/button_pwm_control_sg90",
+    "rust/button_pwm_control_motor",
 ]
 
 [profile.release]
